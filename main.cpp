@@ -49,6 +49,12 @@ int main(int argc, char const *argv[])
     const float updateTime = 1.0 / 12.0;
     float runningTime{};
 
+    // hazard animation frame
+    int nebulaFrame{};
+    // time to update animation frame e.g., 12 fps
+    const float nebulaUpdateTime = 1.0 / 12.0;
+    float nebulaRunningTime{};
+
     while (!WindowShouldClose())
     {
         // Time since last frame
@@ -62,6 +68,7 @@ int main(int argc, char const *argv[])
         DrawTextureRec(nebula, nebulaRec, nebulaPos, WHITE);
 
         runningTime += deltaTime;
+        nebulaRunningTime += deltaTime;
 
         if (!isInAir)
         {
@@ -83,6 +90,20 @@ int main(int argc, char const *argv[])
                 }
             }
         }
+
+        if (nebulaRunningTime >= nebulaUpdateTime)
+        {
+            /* code */
+            nebulaRunningTime = 0.0;
+            nebulaRec.x = nebulaFrame * nebulaRec.width;
+            nebulaFrame++;
+            if (nebulaFrame > 7)
+            {
+                /* code */
+                nebulaFrame = 0;
+            }
+        }
+        
 
         // Check if Player is on Ground
         if (scarfyPos.y >= windowHeight - scarfyRec.height)
