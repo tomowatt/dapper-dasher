@@ -3,11 +3,12 @@
 const int windowHeight = 640;
 const int windowWidth = 800;
 const int FPS = 60;
-const float deltaTime{GetFrameTime()};
 
 int velocity = 0;
-int jumpHeight = -25; 
-int gravity = 1;
+// pixels per second per second
+int jumpHeight = -600;
+// pixels per second
+int gravity = 1000;
 
 bool isInAir{false};
 
@@ -29,6 +30,9 @@ int main(int argc, char const *argv[])
 
     while (!WindowShouldClose())
     {
+        // Time since last frame
+        const float deltaTime{GetFrameTime()};
+
         /* code */
         BeginDrawing();
         ClearBackground(WHITE);
@@ -45,7 +49,7 @@ int main(int argc, char const *argv[])
         // Player is in Air
         else
         {
-            velocity += gravity;
+            velocity += gravity * deltaTime;
             isInAir = true;
         }
 
@@ -56,7 +60,7 @@ int main(int argc, char const *argv[])
             velocity += jumpHeight;
         }
 
-        scarfyPos.y += velocity;
+        scarfyPos.y += velocity * deltaTime;
 
         EndDrawing();
     }
