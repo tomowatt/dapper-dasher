@@ -25,8 +25,14 @@ int main(int argc, char const *argv[])
     scarfyRec.x = 0;
     scarfyRec.y = 0;
     Vector2 scarfyPos;
-    scarfyPos.x = windowHeight/2 - scarfyRec.width/2;
+    scarfyPos.x = windowHeight / 2 - scarfyRec.width / 2;
     scarfyPos.y = windowHeight - scarfyRec.height;
+
+    // animation frame
+    int frame{};
+    // time to update animation frame e.g., 12 fps
+    const float updateTime = 1.0 / 12.0;
+    float runningTime{};
 
     while (!WindowShouldClose())
     {
@@ -38,6 +44,25 @@ int main(int argc, char const *argv[])
         ClearBackground(WHITE);
 
         DrawTextureRec(scarfy, scarfyRec, scarfyPos, WHITE);
+
+        runningTime += deltaTime;
+
+        if (runningTime >= updateTime)
+        {
+            /* code */
+            // reset
+            runningTime = 0.0;
+            // Update animation frames
+            scarfyRec.x = frame * scarfyRec.width;
+            frame++;
+
+            // only six frames for Scarfy animation
+            if (frame > 5)
+            {
+                /* code */
+                frame = 0;
+            }
+        }
 
         // Check if Player is on Ground
         if (scarfyPos.y >= windowHeight - scarfyRec.height)
