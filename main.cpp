@@ -63,20 +63,24 @@ int main(int argc, char const *argv[])
 
         runningTime += deltaTime;
 
-        if (runningTime >= updateTime)
+        if (!isInAir)
         {
             /* code */
-            // reset
-            runningTime = 0.0;
-            // Update animation frames
-            scarfyRec.x = frame * scarfyRec.width;
-            frame++;
-
-            // only six frames for Scarfy animation
-            if (frame > 5)
+            if (runningTime >= updateTime)
             {
                 /* code */
-                frame = 0;
+                // reset
+                runningTime = 0.0;
+                // Update animation frames
+                scarfyRec.x = frame * scarfyRec.width;
+                frame++;
+
+                // only six frames for Scarfy animation
+                if (frame > 5)
+                {
+                    /* code */
+                    frame = 0;
+                }
             }
         }
 
